@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\person\admin;
+namespace johnnymcweed\person\admin;
 
 /**
  * Person Admin Module.
@@ -13,10 +13,10 @@ namespace app\modules\person\admin;
 class Module extends \luya\admin\base\Module
 {
     public $apis = [
-        'api-person-cat' => 'app\modules\person\admin\apis\CatController',
-        'api-person-person' => 'app\modules\person\admin\apis\PersonController',
-        'api-person-address' => 'app\modules\person\admin\apis\AddressController',
-        'api-person-contactdetails' => 'app\modules\person\admin\apis\ContactdetailsController',
+        'api-person-cat' => 'johnnymcweed\person\admin\apis\CatController',
+        'api-person-person' => 'johnnymcweed\person\admin\apis\PersonController',
+        'api-person-address' => 'johnnymcweed\person\admin\apis\AddressController',
+        'api-person-contactdetails' => 'johnnymcweed\person\admin\apis\ContactdetailsController',
     ];
 
     public function getMenu()

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\person\frontend;
+namespace johnnymcweed\person\frontend;
 
 /**
  * Person Admin Module.
