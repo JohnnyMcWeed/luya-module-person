@@ -16,7 +16,7 @@
   },
   "autoload" : {
     "psr-4" : {
-      "johnnymcweed\\place\\" : "src/"
+      "johnnymcweed\\person\\" : "src/"
     }
   },
   "require": {
