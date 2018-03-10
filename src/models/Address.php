@@ -24,6 +24,11 @@ use luya\admin\ngrest\base\NgRestModel;
  */
 class Address extends NgRestModel
 {
+    const ADDRESS_HOME = 'Home';
+    const ADDRESS_WORK = 'Work';
+    const ADDRESS_SCHOOL = 'School';
+    const ADDRESS_OTHER = 'Other';
+    
     /**
      * @inheritdoc
      */
@@ -84,9 +89,29 @@ class Address extends NgRestModel
     public function ngRestAttributeTypes()
     {
         return [
-            'person_id' => ['selectModel', 'modelClass' => Person::class, 'valueField' => 'id', 'labelField' => 'title'],
-            'place_id' => ['selectModel', 'modelClass' => Place::class, 'valueField' => 'id', 'labelField' => 'title'],
-            'type' => 'number', // TODO: Select array
+            'person_id' => [
+                'selectModel',
+                'modelClass' => Person::class,
+                'valueField' => 'id',
+                'labelField' => function($model) {
+                    return $model->first_name . ' ' . $model->last_name;
+                }
+            ],
+            'place_id' => [
+                'selectModel',
+                'modelClass' => Place::class,
+                'valueField' => 'id',
+                'labelField' => 'title'
+            ],
+            'type' => [
+                'selectArray',
+                'data' => [
+                    1 => Module::t(self::ADDRESS_HOME),
+                    2 => Module::t(self::ADDRESS_WORK),
+                    3 => Module::t(self::ADDRESS_SCHOOL),
+                    666 => Module::t(self::ADDRESS_OTHER)
+                ]
+            ],
             'timestamp_create' => 'datetime',
             'timestamp_update' => 'date',
         ];

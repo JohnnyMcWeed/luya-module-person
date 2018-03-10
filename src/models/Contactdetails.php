@@ -23,6 +23,12 @@ use luya\admin\ngrest\base\NgRestModel;
  */
 class Contactdetails extends NgRestModel
 {
+    const TYPE_EMAIL = 'E-Mail';
+    const TYPE_PHONE = 'Phone';
+    const TYPE_MOBILE = 'Mobile';
+    const TYPE_FACEBOOK = 'Facebook';
+    const TYPE_TWITTER = 'Twitter';
+
     /**
      * @inheritdoc
      */
@@ -79,9 +85,22 @@ class Contactdetails extends NgRestModel
     public function ngRestAttributeTypes()
     {
         return [
-            'person_id' => ['selectModel', 'modelClass' => Person::class, 'valueField' => 'id', 'labelField' => 'title'],
+            'person_id' => [
+                'selectModel',
+                'modelClass' => Person::class,
+                'valueField' => 'id',
+                'labelField' => function($model) {
+                    return $model->first_name . ' ' . $model->last_name;
+                }
+            ],
             'value' => 'textarea',
-            'type' => 'number',
+            'type' => ['selectArray', 'data' => [
+                1 => Module::t(self::TYPE_EMAIL),
+                2 => Module::t(self::TYPE_PHONE),
+                3 => Module::t(self::TYPE_MOBILE),
+                4 => Module::t(self::TYPE_FACEBOOK),
+                5 => Module::t(self::TYPE_TWITTER),
+            ]],
             'timestamp_create' => 'datetime',
             'timestamp_update' => 'date',
         ];
