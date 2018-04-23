@@ -1,13 +1,13 @@
 {
   "name": "johnnymcweed/luya-module-person",
   "description": "",
-  "type": "luya-module",
+  "type": "project",
   "minimum-stability": "stable",
   "keywords": ["php", "yii", "yii2", "luya", "luya-module", "module", "person"],
   "license": "MIT",
   "authors": [
     {
-      "name": "Alexander Schmid",
+      "name": "Alex Schmid",
       "email": "alex.schmid@stud.unibas.ch"
     }
   ],
