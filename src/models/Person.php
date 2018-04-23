@@ -3,6 +3,7 @@
 namespace johnnymcweed\person\models;
 
 use johnnymcweed\person\admin\Module;
+use luya\admin\ngrest\plugins\CheckboxRelationActiveQuery;
 use Yii;
 use luya\admin\ngrest\base\NgRestModel;
 
@@ -26,6 +27,9 @@ use luya\admin\ngrest\base\NgRestModel;
  */
 class Person extends NgRestModel
 {
+    public $addresses = [];
+    public $contactdetails = [];
+
     /**
      * @inheritdoc
      */
@@ -74,7 +78,7 @@ class Person extends NgRestModel
         return [
             [['first_name', 'last_name', 'image_list', 'file_list'], 'string'],
             [['birthday', 'timestamp_create', 'timestamp_update', 'cat_id'], 'integer'],
-            [['image_id'], 'safe']
+            [['image_id', 'addresses', 'contactdetails'], 'safe']
         ];
     }
 
@@ -94,13 +98,21 @@ class Person extends NgRestModel
         return [
             'first_name' => 'text',
             'last_name' => 'text',
-            'cat_id' => ['selectModel', 'modelClass' => Cat::class, 'valueField' => 'id', 'labelField' => 'title'],
+            'cat_id' => [
+                'selectModel',
+                'modelClass' => Cat::class,
+                'valueField' => 'id',
+                'labelField' => 'title'],
             'birthday' => 'date',
             'image_id' => 'image',
             'image_list' => 'imageArray',
             'file_list' => 'fileArray',
             'timestamp_create' => 'datetime',
             'timestamp_update' => 'date',
+            'addresses' => [
+                'class' => CheckboxRelationActiveQuery::class,
+                'query' => $this->getAddresses(),
+            ]
         ];
     }
 
@@ -111,8 +123,38 @@ class Person extends NgRestModel
     {
         return [
             ['list', ['first_name', 'last_name']], // TODO: Add place (street/city)
-            [['create', 'update'], ['first_name', 'last_name', 'birthday', 'image_id', 'image_list', 'file_list', 'timestamp_create', 'timestamp_update']],
+            [['create', 'update'], ['first_name', 'last_name', 'birthday', 'image_id', 'image_list', 'file_list', 'timestamp_create', 'timestamp_update','addresses']],
             ['delete', false],
         ];
+    }
+
+    /**
+     * Get the person's main image
+     *
+     * @return bool|\luya\admin\image\Item
+     */
+    public function getImage()
+    {
+        return Yii::$app->storage->getImage($this->image_id);
+    }
+
+    /**
+     * Get the person's addresses
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAddresses()
+    {
+        return $this->hasMany(Address::class, ['id' => 'person_id']);
+    }
+
+    /**
+     * Get the person's contact details
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getContactdetails()
+    {
+        return $this->hasMany(Contactdetails::class, ['id' => 'person_id']);
     }
 }
