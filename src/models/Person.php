@@ -109,10 +109,6 @@ class Person extends NgRestModel
             'file_list' => 'fileArray',
             'timestamp_create' => 'datetime',
             'timestamp_update' => 'date',
-            'addresses' => [
-                'class' => CheckboxRelationActiveQuery::class,
-                'query' => $this->getAddresses(),
-            ]
         ];
     }
 
@@ -131,7 +127,7 @@ class Person extends NgRestModel
     {
         return [
             ['list', ['first_name', 'last_name']], // TODO: Add place (street/city)
-            [['create', 'update'], ['first_name', 'last_name', 'birthday', 'image_id', 'image_list', 'file_list', 'timestamp_create', 'timestamp_update','addresses']],
+            [['create', 'update'], ['first_name', 'last_name', 'birthday', 'image_id', 'image_list', 'file_list', 'timestamp_create', 'timestamp_update',]],
             ['delete', false],
         ];
     }
