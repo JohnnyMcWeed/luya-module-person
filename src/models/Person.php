@@ -116,6 +116,14 @@ class Person extends NgRestModel
         ];
     }
 
+    public function ngRestAttributeGroups()
+    {
+        return [
+            [['timestamp_create', 'timestamp_update'], Module::t('Time'), 'collapsed' => true],
+            [['image_id', 'image_list', 'file_list'], Module::t('Media'), 'collapsed' => true],
+        ];
+    }
+
     /**
      * @inheritdoc
      */

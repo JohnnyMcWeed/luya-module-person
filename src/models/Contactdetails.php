@@ -106,6 +106,13 @@ class Contactdetails extends NgRestModel
         ];
     }
 
+    public function ngRestAttributeGroups()
+    {
+        return [
+            [['timestamp_create', 'timestamp_update'], Module::t('Time'), 'collapsed' => true],
+        ];
+    }
+
     /**
      * @inheritdoc
      */
